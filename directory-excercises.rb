@@ -32,29 +32,29 @@ end
 #under_12_letters = Proc.new { |word| word.length < 12}
 # begins with a specific Character
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(60, '-')
+  puts "-".center(60, '-')
 end
 
-def print(students)
+def print_student_list(students)
   count = 1
   students.each do |student|
-    if student[:name].length < 12
-    puts "#{count}. #{student[:name]} (#{student[:cohort]} cohort)"
+    print "#{count}"
+    print "#{student[:name]} (#{student[:cohort]} cohort)".center((60 - count.to_s.length), '- -')
+    print "\n"
     count += 1
-    end
   end
 end
 
 def print_footer(names)
   if @students.count == 1
-    puts "Overall, we have #{names.count} evil student."
+    puts "Overall, we have #{names.count} evil student.".center(60, '-')
   else
-    puts "Overall, we have #{names.count} evil students."
+    puts "Overall, we have #{names.count} evil students.".center(60, '-')
   end
 end
 #call the methods
 input_students()
 print_header()
-print(@students)
+print_student_list(@students)
 print_footer(@students)

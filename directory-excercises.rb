@@ -30,7 +30,9 @@ def input_students
   end
   @students
 end
-under_12_letters = Proc.new { |word| word.length < 12}
+# Under twelve letters.
+#under_12_letters = Proc.new { |word| word.length < 12}
+# begins with a specific Character
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
@@ -39,8 +41,10 @@ end
 def print(students)
   count = 1
   students.each do |student|
+    if student[:name] =~ /^[Ss]/
     puts "#{count}. #{student[:name]} (#{student[:cohort]} cohort)"
     count += 1
+    end
   end
 end
 

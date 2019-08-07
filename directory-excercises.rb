@@ -1,4 +1,3 @@
-=begin
 @students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
@@ -12,8 +11,7 @@
   {name: "Joffrey Baratheon", cohort: :november},
   {name: "Norman Bates", cohort: :november},
 ]
-=end
-@students = []
+
 def input_students
   puts 'Please enter the names of the students to add'
   puts "to finish, just hit return twice"
@@ -41,7 +39,7 @@ end
 def print(students)
   count = 1
   students.each do |student|
-    if student[:name] =~ /^[Ss]/
+    if student[:name].length < 12
     puts "#{count}. #{student[:name]} (#{student[:cohort]} cohort)"
     count += 1
     end

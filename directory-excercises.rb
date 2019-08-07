@@ -1,3 +1,4 @@
+=begin
 @students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
@@ -11,6 +12,8 @@
   {name: "Joffrey Baratheon", cohort: :november},
   {name: "Norman Bates", cohort: :november},
 ]
+=end
+@students = []
 def input_students
   puts 'Please enter the names of the students to add'
   puts "to finish, just hit return twice"
@@ -18,12 +21,16 @@ def input_students
   #while the name is not empty repeat this code
   while !name.empty? do
     @students << {name: name, cohort: :november}
-    puts "Now we have #{@students.count} students"
+    if @students.count == 1
+      puts "Now we have #{@students.count} student"
+    else
+      puts "Now we have #{@students.count} students"
+    end
     name = gets.chomp
   end
   @students
 end
-
+under_12_letters = Proc.new { |word| word.length < 12}
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
@@ -38,7 +45,11 @@ def print(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} evil students."
+  if @students.count == 1
+    puts "Overall, we have #{names.count} evil student."
+  else
+    puts "Overall, we have #{names.count} evil students."
+  end
 end
 #call the methods
 input_students()

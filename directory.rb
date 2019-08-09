@@ -3,7 +3,7 @@
 def input_students
   puts 'Please enter the names of the students to add'
   puts "to finish, just hit return twice"
-  name = gets.chomp
+  name = STDIN.gets.chomp
   #while the name is not empty repeat this code
   while !name.empty? do
     @students << {name: name, cohort: :november}
@@ -12,7 +12,7 @@ def input_students
     else
       puts "Now we have #{@students.count} students"
     end
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
   @students
 end
@@ -77,8 +77,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -86,14 +86,26 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first #takes first argument given in command line
+  return if filename.nil? #leave function if no filename given (i.e no arguments)
+  if File.exists?(filename)
+    load_students()
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
 def interactive_menu
   loop do
     # 1. print the menus and ask user response
     print_menu()
     # 3. do what the user has asked
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 #call the methods
-
+try_load_students()
 interactive_menu()

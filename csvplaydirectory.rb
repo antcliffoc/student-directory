@@ -7,7 +7,6 @@ def input_students
   puts 'Please enter the names of the students to add'
   puts "to finish, just hit return twice"
   name = STDIN.gets.chomp
-  #while the name is not empty repeat this code
   while !name.empty? do
     add_student(name)
     if @students.count == 1

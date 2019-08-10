@@ -81,9 +81,7 @@ end
 
 
 def save_students(filename = 'students.csv')
-  CSV.open(filename, "a") do |line|
-  @students.each { |hash| line << hash.values }
-  end
+  CSV.open(filename, "a") { |line| @students.each { |hash| line << hash.values } }
   puts "students saved"
 end
 

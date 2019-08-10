@@ -1,3 +1,4 @@
+require 'csv'
 @students = []
 
 @deliniate = Proc.new { puts "-------------"}
@@ -78,27 +79,20 @@ def process(selection)
   end
 end
 
-def save_students
-  #open the file for writing
-  File.open("students.csv", "w"){ |file|
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+
+def save_students(filename = 'students.csv')
+  CSV.open(filename, "a") do |line|
+  @students.each { |hash| line << hash.values }
   end
-  }
   puts "students saved"
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename = 'students.csv')
   student_count = 0
-  File.open(filename, "r"){ |file|
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_student(name, cohort)
+  CSV.foreach(filename) do |row|
+    add_student(row[0], row[1])
     student_count += 1
   end
- }
   puts "loaded #{student_count} from #{filename}"
 end
 
